@@ -1,5 +1,6 @@
 import * as Location from "expo-location";
 import { LocationEntry } from "../models/LocationEntry";
+import { LocationQueue } from "../models/LocationQueue";
 
 const createLocationEntry = ( newTimestamp: number,
                               newLatitude: number, 
@@ -37,7 +38,8 @@ export const startLocationTracking = async (
                                                                locationObj.coords.longitude,
                                                                Location.Accuracy.Highest )
 
-            console.log(newEntry)
+            LocationQueue.push(newEntry)
+            console.log(LocationQueue.length === 0 ? "Queue is empty" : LocationQueue[0])
 
             onLocationUpdate(locationObj.coords)
         }

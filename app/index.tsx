@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../components/Button';
 import MapComponent from '../components/maps/MapParent';
-import { startLocationTracking } from '../logic/location_tracker';
+import { startLocationTracking, stopLocationTracking } from '../logic/location_tracker';
 
 export default function Index() {
   const [showMap, setShowMap] = useState(false);
@@ -16,7 +16,11 @@ export default function Index() {
             <Button
               theme="primary"
               label="Close"
-              onPress={() => setShowMap(false)}
+              onPress={() => {
+                setShowMap(false)
+                stopLocationTracking()
+              }
+              }
             />
           </View>
         </>
@@ -29,9 +33,8 @@ export default function Index() {
               label="Map"
               onPress={() => {
                 setShowMap(true)
-                startLocationTracking(() => {});
+                startLocationTracking(() => { });
               }
-
               }
             />
             <Button label="Use this photo" />
@@ -45,7 +48,7 @@ export default function Index() {
 const modalStyles = StyleSheet.create({
   closeButtonContainer: {
     position: 'absolute',
-    top: 60, 
+    top: 60,
     left: 20,
     zIndex: 1,
   },
