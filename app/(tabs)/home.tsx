@@ -1,62 +1,31 @@
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { default as HomeIcon, default as StarIcon } from '../../assets/images/home.svg';
-import Button from '../../components/Button';
-import MapComponent from '../../components/maps/MapParent';
-import { startLocationTracking, stopLocationTracking } from '../../logic/location_tracker';
+import { StyleSheet, View } from 'react-native';
+import HomeIcon from '../../assets/images/home.svg';
+import StarIcon from '../../assets/images/star.svg';
+import IconButton from '../../components/IconButton';
 
-export default function Index() {
+export default function home() {
   
+  const router = useRouter();
   const [showMap, setShowMap] = useState(false);
   return (
-    
-    <View style={styles.mainWrapper}>
-
-      <View style={styles.container}>
-        {showMap ? (
-          <>
-            <MapComponent />
-            <View style={modalStyles.closeButtonContainer}>
-              <Button
-                theme="primary"
-                label="Close"
-                onPress={() => {
-                  setShowMap(false)
-                  stopLocationTracking()
-                }
-              }
-            />
-          </View>
-        </>
-      ) : (
-        <>
-          <Text style={styles.text}>Home screen</Text>
-          <View>
-            <Button
-              theme="primary"
-              label="Map"
-              onPress={() => {
-                setShowMap(true)
-                startLocationTracking(() => { });
-              }
-              }
-            />
-          </View>
-        </>
-      )}
-    </View>
+<View style={styles.mainWrapper}>
+      
       <View style={styles.taskBar}>
-
         {/* Icon 1: Home */}
-        <Link href="/home">
-          <HomeIcon width={80} height={80} />
-        </Link>
+        <IconButton 
+          IconComponent={HomeIcon}  
+          size={40}                 
+          onPress={() => router.push('/home')} 
+        />
 
         {/* Icon 2: Star */}
-        <Link href="/favoriteScreen">
-          <StarIcon width={80} height={80} />
-        </Link>
+        <IconButton 
+          IconComponent={StarIcon}
+          size={40}
+          onPress={() => router.push('/favoriteScreen')}
+        />
       </View>
     </View>
   );
