@@ -1,5 +1,5 @@
 import * as Location from 'expo-location';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { Region } from 'react-native-maps';
 
