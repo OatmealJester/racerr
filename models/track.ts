@@ -44,14 +44,3 @@ class TrackBuilder {
         return new Track(this.creator, this.UID, this.best_time, this.best_racer, this.track_name);
     }
 }
-
-// ✅ Example usage:
-const track = new TrackBuilder()
-    .setCreator("Luis")
-    .setUID("UID123")
-    .setBestTime(92.5)
-    .setBestRacer("SpeedyRacer")
-    .setTrackName("Sunset Circuit")
-    .build();
-
-console.log(track);
