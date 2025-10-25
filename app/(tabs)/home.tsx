@@ -9,27 +9,30 @@ export default function home() {
   
   const router = useRouter();
   const [showMap, setShowMap] = useState(false);
+  
   return (
-<View style={styles.mainWrapper}>
-      
-      <View style={styles.taskBar}>
-        {/* Icon 1: Home */}
-        <IconButton 
-          IconComponent={HomeIcon}  
-          size={40}                 
-          onPress={() => router.push('/home')} 
-        />
+          <View style={styles.mainWrapper}>
+        
+          <View style={styles.taskBar}>
+            {/* Icon 1: Home */}
+            <IconButton 
+              IconComponent={HomeIcon}  
+              size={40}                 
+              onPress={() => router.push('/home')} 
+            />
+          
+          {/* Icon 2: Star */}
+          <IconButton 
+            IconComponent={StarIcon}
+            size={40}
+            onPress={() => router.push('/favoriteScreen')}
+          />
 
-        {/* Icon 2: Star */}
-        <IconButton 
-          IconComponent={StarIcon}
-          size={40}
-          onPress={() => router.push('/favoriteScreen')}
-        />
+          {/* Icon 3: Map */}
+        </View>
       </View>
-    </View>
-  );
-}
+    );
+  }
 
 const modalStyles = StyleSheet.create({
   closeButtonContainer: {
