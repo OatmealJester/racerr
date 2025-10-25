@@ -7,7 +7,7 @@ const createCoordPayload = (locationQueue): string => {
     
     while(locationQueue.length !== 0) {
         let current = locationQueue.shift()
-        requestString += current.latitude + "," + current.longitude + ";"
+        requestString += current.longitude + "," + current.latitude + ";"
     }
 
     // Remove last semicolon

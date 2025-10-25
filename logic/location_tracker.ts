@@ -33,7 +33,7 @@ export const startLocationTracking = async (
     console.log('Starting tracker')
 
     locationSubscription = await Location.watchPositionAsync(
-        { accuracy: Location.Accuracy.Highest, timeInterval: 500, distanceInterval: 1 },
+        { accuracy: Location.Accuracy.Highest, timeInterval: 5000, distanceInterval: 50},
 
         (locationObj) => { 
             let newEntry: LocationEntry = createLocationEntry( Date.now(), 
