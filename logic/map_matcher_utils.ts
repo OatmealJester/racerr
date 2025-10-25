@@ -13,8 +13,6 @@ const createCoordPayload = (locationQueue): string => {
     // Remove last semicolon
     requestString = requestString.substring(0,requestString.length-1)
 
-    console.log(requestString)
-
     return requestString
 }
 
