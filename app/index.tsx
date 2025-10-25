@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../components/Button';
 import MapComponent from '../components/maps/MapParent';
+import { startLocationTracking } from '../logic/location_tracker';
 
 export default function Index() {
   const [showMap, setShowMap] = useState(false);
@@ -10,7 +11,7 @@ export default function Index() {
     <View style={styles.container}>
       {showMap ? (
         <>
-          <MapComponent/>
+          <MapComponent />
           <View style={modalStyles.closeButtonContainer}>
             <Button
               theme="primary"
@@ -26,7 +27,12 @@ export default function Index() {
             <Button
               theme="primary"
               label="Map"
-              onPress={() => setShowMap(true)}
+              onPress={() => {
+                setShowMap(true)
+                startLocationTracking(() => {});
+              }
+
+              }
             />
             <Button label="Use this photo" />
           </View>

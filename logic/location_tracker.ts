@@ -1,3 +1,4 @@
+import * as Location from "expo-location";
 import { LocationEntry } from "../models/LocationEntry";
 
 const createLocationEntry = ( newTimestamp: number,
@@ -12,6 +13,40 @@ const createLocationEntry = ( newTimestamp: number,
     }
 }
 
+let locationSubscription: Location.LocationSubscription | null = null
 
+export const startLocationTracking = async ( 
+    onLocationUpdate: (coords: Location.LocationObjectCoords) => void
+) : Promise<void> => {
+    
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+        console.error('Permission denied');
+        return;
+    }
 
+    if (locationSubscription)
+        await stopLocationTracking()
 
+    locationSubscription = await Location.watchPositionAsync(
+        { accuracy: Location.Accuracy.Highest, timeInterval: 500, distanceInterval: 1 },
+
+        (locationObj) => { 
+            let newEntry: LocationEntry = createLocationEntry( Date.now(), 
+                                                               locationObj.coords.latitude,
+                                                               locationObj.coords.longitude,
+                                                               Location.Accuracy.Highest )
+
+            console.log(newEntry)
+
+            onLocationUpdate(locationObj.coords)
+        }
+    )
+}
+
+export function stopLocationTracking() {
+  if (locationSubscription) {
+    locationSubscription.remove();
+    locationSubscription = null;
+  }
+}
