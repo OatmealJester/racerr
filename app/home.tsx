@@ -1,8 +1,8 @@
 import { useRouter } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
-import HomeIcon from '../../assets/images/home.svg';
-import MapIcon from '../../assets/images/map.svg';
-import StarIcon from '../../assets/images/star.svg';
+import HomeIcon from '../assets/images/home.svg';
+import MapIcon from '../assets/images/map.svg';
+import StarIcon from '../assets/images/star.svg';
 import IconButton from '../components/IconButton';
 
 
