@@ -24,7 +24,7 @@ const getApiKeyBody = () => {
     return keyBody
 }
 
-export const createPayload = () => {
+export const createPayloadURL = () => {
     let payload = ""
     
     payload += MAPBOX_URL

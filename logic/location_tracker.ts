@@ -1,7 +1,6 @@
 import * as Location from "expo-location";
 import { LocationEntry } from "../models/LocationEntry";
 import { locationQueue } from "../models/LocationQueue";
-import { createPayload } from "./map_matcher_utils";
 
 const createLocationEntry = ( newTimestamp: number,
                               newLatitude: number, 
@@ -54,8 +53,5 @@ export function stopLocationTracking() {
     console.log("Stopping tracker")
     locationSubscription.remove();
     locationSubscription = null;
-
-    console.log(createPayload())
-
   }
 }
