@@ -1,4 +1,4 @@
-class Track {
+export class Track {
     constructor(
         public creator: string,
         public UID: string,
@@ -8,34 +8,34 @@ class Track {
     ) { }
 }
 
-class TrackBuilder {
+export class TrackBuilder {
     private creator: string = "";
     private UID: string = "";
+    private track_name: string = "";
     private best_time: number = 0;
     private best_racer: string = "";
-    private track_name: string = "";
 
-    public setCreator(creator: string): TrackBuilder {
+    public withCreator(creator: string): TrackBuilder {
         this.creator = creator;
         return this;
     }
 
-    public setUID(UID: string): TrackBuilder {
+    public withUID(UID: string): TrackBuilder {
         this.UID = UID;
         return this;
     }
 
-    public setBestTime(best_time: number): TrackBuilder {
+    public withBestTime(best_time: number): TrackBuilder {
         this.best_time = best_time;
         return this;
     }
 
-    public setBestRacer(best_racer: string): TrackBuilder {
+    public withBestRacer(best_racer: string): TrackBuilder {
         this.best_racer = best_racer;
         return this;
     }
 
-    public setTrackName(track_name: string): TrackBuilder {
+    public withTrackName(track_name: string): TrackBuilder {
         this.track_name = track_name;
         return this;
     }
