@@ -6,8 +6,8 @@ const createLocationEntry = ( newTimestamp: number,
                               newAccuracy: number ) : LocationEntry => {
     return {
         timestamp: newTimestamp,
-        lat: newLatitude,
-        long: newLongitude,
+        latitude: newLatitude,
+        longitude: newLongitude,
         accuracy: newAccuracy
     }
 }

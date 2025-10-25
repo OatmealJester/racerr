@@ -1,6 +1,6 @@
 export interface LocationEntry {
-    time_stamp: number
-    lat: number
-    long: number
+    timestamp: number
+    latitude: number
+    longitude: number
     accuracy: number
 }
