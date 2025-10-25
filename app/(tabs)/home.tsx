@@ -1,5 +1,4 @@
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import HomeIcon from '../../assets/images/home.svg';
 import MapIcon from '../../assets/images/map.svg';
@@ -9,7 +8,6 @@ import IconButton from '../../components/IconButton';
 export default function home() {
   
   const router = useRouter();
-  const [showMap, setShowMap] = useState(false);
   
   return (
           <View style={styles.mainWrapper}>

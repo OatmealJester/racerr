@@ -37,7 +37,7 @@ export default function mapScreen(){
                 />
             </View>
             </>
-        )};
+        )}
     </View>
     )
 }
@@ -66,9 +66,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
+    fontSize: 18,
   },
   image: {
     width: 80,
     height: 80,
- }
+ },
 });
