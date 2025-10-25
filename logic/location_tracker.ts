@@ -1,6 +1,7 @@
 import * as Location from "expo-location";
 import { LocationEntry } from "../models/LocationEntry";
-import { LocationQueue } from "../models/LocationQueue";
+import { locationQueue } from "../models/LocationQueue";
+import { createCoordPayload } from "./map_matcher";
 
 const createLocationEntry = ( newTimestamp: number,
                               newLatitude: number, 
@@ -40,8 +41,8 @@ export const startLocationTracking = async (
                                                                locationObj.coords.longitude,
                                                                Location.Accuracy.Highest )
 
-            LocationQueue.push(newEntry)
-            console.log(LocationQueue.length === 0 ? "Queue is empty" : LocationQueue[LocationQueue.length-1])
+            locationQueue.push(newEntry)
+            console.log(locationQueue.length === 0 ? "Queue is empty" : locationQueue[locationQueue.length-1])
 
             onLocationUpdate(locationObj.coords)
         }
@@ -53,5 +54,8 @@ export function stopLocationTracking() {
     console.log("Stopping tracker")
     locationSubscription.remove();
     locationSubscription = null;
+
+    createCoordPayload(locationQueue)
+
   }
 }
