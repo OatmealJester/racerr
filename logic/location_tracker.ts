@@ -1,7 +1,7 @@
 import * as Location from "expo-location";
 import { LocationEntry } from "../models/LocationEntry";
 import { locationQueue } from "../models/LocationQueue";
-import { createPayload } from "./map_matcher";
+import { createPayload } from "./map_matcher_util";
 
 const createLocationEntry = ( newTimestamp: number,
                               newLatitude: number, 
