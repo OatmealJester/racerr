@@ -29,6 +29,8 @@ export const startLocationTracking = async (
     if (locationSubscription)
         await stopLocationTracking()
 
+    console.log('Starting tracker')
+
     locationSubscription = await Location.watchPositionAsync(
         { accuracy: Location.Accuracy.Highest, timeInterval: 500, distanceInterval: 1 },
 
@@ -39,7 +41,7 @@ export const startLocationTracking = async (
                                                                Location.Accuracy.Highest )
 
             LocationQueue.push(newEntry)
-            console.log(LocationQueue.length === 0 ? "Queue is empty" : LocationQueue[0])
+            console.log(LocationQueue.length === 0 ? "Queue is empty" : LocationQueue[LocationQueue.length-1])
 
             onLocationUpdate(locationObj.coords)
         }
@@ -48,6 +50,7 @@ export const startLocationTracking = async (
 
 export function stopLocationTracking() {
   if (locationSubscription) {
+    console.log("Stopping tracker")
     locationSubscription.remove();
     locationSubscription = null;
   }
