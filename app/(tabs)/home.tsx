@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import HomeIcon from '../../assets/images/home.svg';
+import MapIcon from '../../assets/images/map.svg';
 import StarIcon from '../../assets/images/star.svg';
 import IconButton from '../../components/IconButton';
 
@@ -21,14 +22,20 @@ export default function home() {
               onPress={() => router.push('/home')} 
             />
           
-          {/* Icon 2: Star */}
+          {/* Icon 3: Map */}
+          <IconButton 
+            IconComponent={MapIcon}
+            size={40}
+            onPress={() => router.push('/mapScreen')}
+          />
+
+          {/* Icon 3: Star */}
           <IconButton 
             IconComponent={StarIcon}
             size={40}
             onPress={() => router.push('/favoriteScreen')}
           />
-
-          {/* Icon 3: Map */}
+          
         </View>
       </View>
     );
