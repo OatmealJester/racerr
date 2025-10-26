@@ -22,7 +22,8 @@ const stopTrackingProcedure = async () => {
   const geometryData = await getMapMatch()
   const newTrack = createNewTrack(geometryData) 
   await uploadTrack(newTrack)
-
+  
+  //Add Modal for Track name if new race
 }
 
 export default function Interactables4Map({
@@ -39,7 +40,7 @@ export default function Interactables4Map({
         
         return "finish";
       } else {  
-
+        
         stopTrackingProcedure()
 
         return "start";
