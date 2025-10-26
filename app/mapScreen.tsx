@@ -12,13 +12,13 @@ function MapScreenContent() {
       <View style={StyleSheet.absoluteFillObject}>
         <MapComponent />
       </View>
+      
       {/* Bottom banner positioned above system buttons */}
+      
       <View style={{ position: 'absolute', bottom: insets.bottom, left: 0, right: 0 }}>
         <Interactables4Map
-          state="start"
           distance={0}
           mph={0}
-          onPress={() => {}}
         />
       </View>
     </View>

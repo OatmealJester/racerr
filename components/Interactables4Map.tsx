@@ -1,32 +1,42 @@
 import type { ComponentType } from "react";
+import { useState } from 'react';
 import { StyleSheet, Text, View } from "react-native";
 import { SvgProps } from "react-native-svg";
-import Play from "../assets/ui/1f3c1.svg";
-import Finish from "../assets/ui/1f53a.svg";
+import Finish from "../assets/ui/1f3c1.svg";
+import Play from "../assets/ui/play.svg";
 import IconButton from "./IconButton";
 
+type raceState = "finish" | "start"
+
 type Interactables4MapProps = {
-  state: "start" | "finish";
-  onPress?: () => void;
   distance: number;
   mph: number;
 };
 
+
 export default function Interactables4Map({
-  state,
-  onPress,
   distance,
   mph,
 }: Interactables4MapProps) {
+  const [raceState, setRaceState] = useState<"start" | "finish">("start");
+  
+  const handleButtonPress = () => {
+    setRaceState(currentState => {
+      if (currentState === "start") {
+        return "finish";
+      } else {
+        return "start";
+      }
+    });
+  };
+
   // Pick correct icon for starting and ending a race
   let MainIcon: ComponentType<SvgProps> = Play;
-  if (state === "finish") MainIcon = Finish;
+  if (raceState === "finish") MainIcon = Finish;
   
   return (
     <View pointerEvents="box-none" style={styles.container}>
 
-
-      
       <View style={styles.banner}>
         {/* Left metric: Distance */}
         <View style={[styles.metric, styles.metricLeft]}>
@@ -41,7 +51,7 @@ export default function Interactables4Map({
           <IconButton 
             IconComponent={MainIcon} 
             size={54} 
-            onPress={onPress || (() => {})} 
+            onPress={handleButtonPress}
           />
         </View>
         
