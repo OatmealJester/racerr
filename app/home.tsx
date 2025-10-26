@@ -26,7 +26,7 @@ export default function home() {
         <IconButton 
           IconComponent={HomeIcon}  
           size={40}                 
-          onPress={() => router.push('./home')} 
+          onPress={null} 
         />
           
       {/* Icon 3: Map */}
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
     flexDirection: 'row',
-    backgroundColor: "#E02a24",
+    backgroundColor: "#0091ff",
     alignItems: "center",
     justifyContent: "space-around",
   },
