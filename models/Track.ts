@@ -1,22 +1,25 @@
 export class Track {
     private _creator: string;
-    private _UID: string;
+    private _UUID: string;
     private _best_time: number;
     private _best_racer: string;
     private _track_name: string;
+    private _map_geometry: string
 
     constructor(
         creator: string,
-        UID: string,
+        UUID: string,
         best_time: number,
         best_racer: string,
-        track_name: string
+        track_name: string,
+        map_geometry: string
     ) {
         this._creator = creator;
-        this._UID = UID;
+        this._UUID = UUID;
         this._best_time = best_time;
         this._best_racer = best_racer;
         this._track_name = track_name;
+        this._map_geometry = map_geometry
     }
 
     public get creator(): string {
@@ -26,11 +29,11 @@ export class Track {
         this._creator = value;
     }
 
-    public get UID(): string {
-        return this._UID;
+    public get UUID(): string {
+        return this._UUID;
     }
-    public set UID(value: string) {
-        this._UID = value;
+    public set UUID(value: string) {
+        this._UUID = value;
     }
 
     public get best_time(): number {
@@ -54,22 +57,30 @@ export class Track {
     public set track_name(value: string) {
         this._track_name = value;
     }
+
+    public get map_geometry(): string {
+        return this.map_geometry;
+    }
+    public set map_geometry(value: string) {
+        this._map_geometry = value;
+    }
 }
 
 export class TrackBuilder {
     private creator: string = "";
-    private UID: string = "";
+    private UUID: string = "";
     private track_name: string = "";
     private best_time: number = 0;
     private best_racer: string = "";
+    private map_geometry: string = ""
 
     public withCreator(creator: string): TrackBuilder {
         this.creator = creator;
         return this;
     }
 
-    public withUID(UID: string): TrackBuilder {
-        this.UID = UID;
+    public withUUID(UUID: string): TrackBuilder {
+        this.UUID = UUID;
         return this;
     }
 
@@ -88,7 +99,17 @@ export class TrackBuilder {
         return this;
     }
 
+    public withMapGeomtry(map_geometry: string): TrackBuilder {
+        this.map_geometry = map_geometry;
+        return this;
+    }
+
     public build(): Track {
-        return new Track(this.creator, this.UID, this.best_time, this.best_racer, this.track_name);
+        return new Track(this.creator, 
+                         this.UUID, 
+                         this.best_time, 
+                         this.best_racer, 
+                         this.track_name,
+                         this.map_geometry );
     }
 }

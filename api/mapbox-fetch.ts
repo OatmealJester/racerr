@@ -1,3 +1,4 @@
+import { decodeGeometry } from "../logic/decode_polyline"
 import { TEST_PAYLOAD_URL } from "../test/example-payload"
 
 export const getMapMatch = async () => {
@@ -28,7 +29,7 @@ export const getMapMatch = async () => {
         // Extract geometry data
         const geometryData = responseData.matchings[0].geometry
 
-        console.log("Geometry data:", geometryData)
+        console.log("Geometry data:", decodeGeometry(geometryData))
 
         return geometryData
 
