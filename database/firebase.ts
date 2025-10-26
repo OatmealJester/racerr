@@ -1,13 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { FIREBASE_API_KEY } from "../api/key";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDXxTQ07JdtiG9ZRj_G7SrPB9j-ycjCZHU",
+  apiKey: FIREBASE_API_KEY,
   authDomain: "racerr-605cc.firebaseapp.com",
   projectId: "racerr-605cc",
   storageBucket: "racerr-605cc.firebasestorage.app",
