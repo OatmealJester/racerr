@@ -1,46 +1,89 @@
-// MapParent.tsx
-import * as Location from 'expo-location';
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
-import MapView, { Region } from 'react-native-maps';
+import MapView, {
+  LatLng,
+  MapViewProps,
+  PROVIDER_GOOGLE,
+  UserLocationChangeEvent,
+} from 'react-native-maps';
 
-type MapParentProps = React.PropsWithChildren<{}>;
+import { haversineMeters } from '../../logic/geo_utils';
+import { useFinishMetrics } from '../../logic/useFinishMetrics';
 
-const MapParent = forwardRef<MapView, MapParentProps>(function MapParent(
-  { children },
+type Props = Omit<MapViewProps, 'onUserLocationChange' | 'style'> & {
+  state: 'start' | 'finish';
+  minDistance?: number;
+  onMetrics?: (miles: number, mph: number) => void;
+  onUserLocationChangeAlso?: (e: UserLocationChangeEvent) => void;
+  children?: React.ReactNode;
+};
+
+const MapParent = forwardRef<MapView, Props>(function MapParent(
+  {
+    state,
+    minDistance = 3,
+    onMetrics,
+    onUserLocationChangeAlso,
+    children,
+    provider = PROVIDER_GOOGLE,
+    ...rest
+  },
   ref
 ) {
-  const [initialRegion, setInitialRegion] = useState<Region | null>(null);
+  // last point that cleared the significance gate
+  const lastSig = useRef<LatLng | null>(null);
 
+  // your metrics hook (also uses minDistance internally)
+  const { miles, mph, onUserLocationChange: metricsOnChange, reset } =
+    useFinishMetrics({ state, minDistance });
+
+  // bubble metrics up
   useEffect(() => {
-    let alive = true;
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.warn('Permission to access location was denied');
+    onMetrics?.(miles, mph);
+  }, [miles, mph, onMetrics]);
+
+  // reset local gate + metrics when entering "start"
+  useEffect(() => {
+    if (state === 'start') {
+      lastSig.current = null;
+      reset();
+    }
+  }, [state, reset]);
+
+  const handle = useCallback(
+    (e: UserLocationChangeEvent) => {
+      const c = e.nativeEvent?.coordinate;
+      if (!c) return;
+      const pt: LatLng = { latitude: c.latitude, longitude: c.longitude };
+
+      // accept first fix immediately
+      if (!lastSig.current) {
+        lastSig.current = pt;
+        metricsOnChange(e);            // primes hook
+        onUserLocationChangeAlso?.(e); // let children draw first point
         return;
       }
-      const loc = await Location.getCurrentPositionAsync({});
-      if (!alive) return;
-      setInitialRegion({
-        latitude: loc.coords.latitude,
-        longitude: loc.coords.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      });
-    })();
-    return () => { alive = false; };
-  }, []);
 
-  if (!initialRegion) return null;
+      // significance gate
+      const d = haversineMeters(lastSig.current, pt);
+      if (d < minDistance) return;
+
+      lastSig.current = pt;
+      metricsOnChange(e);            // updates miles/mph
+      onUserLocationChangeAlso?.(e); // tells RecordingMap to extend trail
+    },
+    [minDistance, metricsOnChange, onUserLocationChangeAlso]
+  );
 
   return (
     <MapView
       ref={ref}
-      style={styles.map}
-      initialRegion={initialRegion}
+      style={StyleSheet.absoluteFillObject}
+      provider={provider}
       showsUserLocation
-      showsMyLocationButton
+      onUserLocationChange={handle}
+      // you can add initialRegion / camera defaults here if you want
+      {...rest}
     >
       {children}
     </MapView>
@@ -48,7 +91,3 @@ const MapParent = forwardRef<MapView, MapParentProps>(function MapParent(
 });
 
 export default MapParent;
-
-const styles = StyleSheet.create({
-  map: { ...StyleSheet.absoluteFillObject },
-});

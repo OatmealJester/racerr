@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Interactables4Map from '../components/Interactables4Map';
@@ -5,17 +6,27 @@ import MapComponent from '../components/maps/RecordingMap';
 
 function MapScreenContent() {
   const insets = useSafeAreaInsets();
-  
+  const [miles, setMiles] = useState(0);
+  const [mph, setMph] = useState(0);
+
   return (
     <View style={styles.container}>
       {/* Map fills the screen */}
       <View style={StyleSheet.absoluteFillObject}>
-        <MapComponent />
+        <MapComponent
+          state="finish"
+          onMetrics={(mi, spd) => {
+            setMiles(mi);
+            setMph(spd);
+          }}
+        />
       </View>
-      
-      {/* Bottom banner positioned above system buttons */}
-      
-      <View style={{ position: 'absolute', bottom: insets.bottom, left: 0, right: 0 }}>
+
+      {/* Bottom banner (let touches go through outside the banner) */}
+      <View
+        style={{ position: 'absolute', bottom: insets.bottom, left: 0, right: 0 }}
+        pointerEvents="box-none"
+      >
         <Interactables4Map
           distance={0}
           mph={0}
