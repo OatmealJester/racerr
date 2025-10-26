@@ -8,8 +8,8 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <Stack>
           <Stack.Screen name = "home"  options={{ headerShown: false }} />
-          <Stack.Screen name = "favorites" options={{ headerShown: false }} />
-          <Stack.Screen name = "map" options={{ headerShown: false }} />
+          <Stack.Screen name = "favoriteScreen" options={{ headerShown: false }} />
+          <Stack.Screen name = "mapScreen" options={{ headerShown: false }} />
         </Stack>
       </SafeAreaProvider>
     </GestureHandlerRootView>

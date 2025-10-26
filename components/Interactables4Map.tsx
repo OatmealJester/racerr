@@ -1,9 +1,9 @@
 import type { ComponentType } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { SvgProps } from "react-native-svg";
-
-import Finish from "../assets/ui/finish.svg";
-import Play from "../assets/ui/play.svg";
+import Play from "../assets/ui/1f3c1.svg";
+import Finish from "../assets/ui/1f53a.svg";
+import IconButton from "./IconButton";
 
 type Interactables4MapProps = {
   state: "start" | "finish";
@@ -21,9 +21,12 @@ export default function Interactables4Map({
   // Pick correct icon for starting and ending a race
   let MainIcon: ComponentType<SvgProps> = Play;
   if (state === "finish") MainIcon = Finish;
-
+  
   return (
     <View pointerEvents="box-none" style={styles.container}>
+
+
+      
       <View style={styles.banner}>
         {/* Left metric: Distance */}
         <View style={[styles.metric, styles.metricLeft]}>
@@ -32,17 +35,16 @@ export default function Interactables4Map({
             {Number.isFinite(distance) ? distance.toFixed(2) : "0.00"} mi
           </Text>
         </View>
-
-        {/* Center button */}
-        <TouchableOpacity
-          activeOpacity={0.85}
-          onPress={onPress}
-          style={styles.button}
-          hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-        >
-          <MainIcon width={28} height={28} />
-        </TouchableOpacity>
-
+        
+        {/* Center button - needs to be centered in flow */}
+        <View style={styles.buttonCenter}>
+          <IconButton 
+            IconComponent={MainIcon} 
+            size={54} 
+            onPress={onPress || (() => {})} 
+          />
+        </View>
+        
         {/* Right metric: Speed */}
         <View style={[styles.metric, styles.metricRight]}>
           <Text style={styles.metricLabel}>MPH</Text>
@@ -56,13 +58,12 @@ export default function Interactables4Map({
 }
 
 const BANNER_HEIGHT = 72;
-
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: 24,
+    bottom: 0,
     alignItems: "center",
   },
   banner: {
@@ -70,28 +71,14 @@ const styles = StyleSheet.create({
     width: "92%",
     height: BANNER_HEIGHT,
     borderRadius: 18,
-    backgroundColor: "rgba(0,0,0,0.35)",
-    alignItems: "center",
-    justifyContent: "center",
-
-    // subtle shadow
-    shadowColor: "#000",
-    shadowOpacity: 0.25,
-    shadowOffset: { width: 0, height: 6 },
-    shadowRadius: 12,
-    elevation: 6,
-  },
-
-  // Center button is truly centered; metrics are absolutely positioned at edges
-  button: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: "rgba(255,255,255,0.9)",
+    backgroundColor: "rgba(0,0,0,0.50)",
     alignItems: "center",
     justifyContent: "center",
   },
-
+  buttonCenter: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
   metric: {
     position: "absolute",
     top: 0,
