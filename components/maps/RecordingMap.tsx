@@ -20,7 +20,7 @@ type RecordingMapProps = {
 
 export default function RecordingMap({
   state,
-  minDistance = 3,
+  minDistance = 7,
   lineWidth = 6,
   lineColor = "#007AFF",
   zoom = 17,
