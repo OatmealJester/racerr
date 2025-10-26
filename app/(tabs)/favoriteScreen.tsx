@@ -8,14 +8,6 @@ return(
   );
 }
 
-const modalStyles = StyleSheet.create({
-  closeButtonContainer: {
-    position: 'absolute',
-    top: 60,
-    left: 20,
-    zIndex: 1,
-  },
-});
 const styles = StyleSheet.create({
   mainWrapper: {
     flex:1,
