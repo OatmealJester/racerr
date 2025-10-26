@@ -59,7 +59,7 @@ export class Track {
     }
 
     public get map_geometry(): string {
-        return this.map_geometry;
+        return this._map_geometry;
     }
     public set map_geometry(value: string) {
         this._map_geometry = value;

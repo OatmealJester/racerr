@@ -1,3 +1,4 @@
+import "react-native-get-random-values"
 import { v4 as uuidv4 } from "uuid"
 import { Track, TrackBuilder } from "../models/Track"
 
@@ -12,3 +13,4 @@ export const createNewTrack = (geometryData: string): Track => {
                                 
     return newTrack    
 }
+

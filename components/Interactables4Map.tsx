@@ -6,6 +6,8 @@ import { getMapMatch } from "../api/mapbox-fetch";
 import Finish from "../assets/ui/1f3c1.svg";
 import Play from "../assets/ui/play.svg";
 import IconButton from '../components/IconButton';
+import { uploadTrack } from "../database/upload_track";
+import { createNewTrack } from "../logic/create_new_track";
 import { startLocationTracking, stopLocationTracking } from "../logic/location_tracker";
 
 
@@ -15,9 +17,12 @@ type Interactables4MapProps = {
   mph: number;
 };
 
-const stopTrackingProcedure = () => {
+const stopTrackingProcedure = async () => {
   stopLocationTracking()
-  getMapMatch()
+  const geometryData = await getMapMatch()
+  const newTrack = createNewTrack(geometryData) 
+  await uploadTrack(newTrack)
+
 }
 
 export default function Interactables4Map({
