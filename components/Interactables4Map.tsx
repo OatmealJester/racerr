@@ -5,10 +5,10 @@ import { SvgProps } from "react-native-svg";
 import { getMapMatch } from "../api/mapbox-fetch";
 import Finish from "../assets/ui/1f3c1.svg";
 import Play from "../assets/ui/play.svg";
+import IconButton from '../components/IconButton';
 import { startLocationTracking, stopLocationTracking } from "../logic/location_tracker";
-import IconButton from "./IconButton";
 
-type raceState = "finish" | "start"
+
 
 type Interactables4MapProps = {
   distance: number;
@@ -30,12 +30,12 @@ export default function Interactables4Map({
     setRaceState(currentState => {
       if (currentState === "start") {
 
-        stopTrackingProcedure()
-
-        return "finish";
-      } else {
-
         startLocationTracking(()=>{})
+        
+        return "finish";
+      } else {  
+
+        stopTrackingProcedure()
 
         return "start";
       }
@@ -128,5 +128,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     color: "#fff",
-  },
+  }
 });
