@@ -1,10 +1,10 @@
 import { useRouter } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import HomeIcon from '../assets/images/home.svg';
 import MapIcon from '../assets/images/map.svg';
 import StarIcon from '../assets/images/star.svg';
 import IconButton from '../components/IconButton';
-
 
 
 export default function home() {
@@ -14,6 +14,7 @@ export default function home() {
   return (
     
     /* Main Page Content */
+  <SafeAreaProvider>  
     <View style={styles.mainWrapper}>
       <View style={styles.container}>
         <Text style={styles.text}> YAy </Text>
@@ -44,8 +45,9 @@ export default function home() {
         />
       </View>    
     </View>
-    );
-  }
+  </SafeAreaProvider>  
+  );
+}
 
 const styles = StyleSheet.create({
   mainWrapper: {
