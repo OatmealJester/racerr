@@ -11,25 +11,20 @@ function MapScreenContent() {
 
   return (
     <View style={styles.container}>
-      {/* Map fills the screen */}
       <View style={StyleSheet.absoluteFillObject}>
         <MapComponent
           state="finish"
-          onMetrics={(mi, spd) => {
-            setMiles(mi);
-            setMph(spd);
-          }}
+          onMetrics={(mi, spd) => { setMiles(mi); setMph(spd); }}
         />
       </View>
 
-      {/* Bottom banner (let touches go through outside the banner) */}
       <View
         style={{ position: 'absolute', bottom: insets.bottom, left: 0, right: 0 }}
         pointerEvents="box-none"
       >
         <Interactables4Map
-          distance={0}
-          mph={0}
+          distance={miles}
+          mph={mph}
         />
       </View>
     </View>
@@ -51,11 +46,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    color: '#fff',
-  },
-  image: {
-    width: 80,
-    height: 80,
-  }
 });
