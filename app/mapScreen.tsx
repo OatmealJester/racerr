@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Interactables4Map from '../components/Interactables4Map';
-import MapComponent from '../components/maps/MapParent';
+import MapComponent from '../components/maps/RecordingMap';
 
 function MapScreenContent() {
   const insets = useSafeAreaInsets();
