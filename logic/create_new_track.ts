@@ -11,6 +11,8 @@ export const createNewTrack = (geometryData: string): Track => {
                                 .withUUID(uuid)
                                 .withMapGeomtry(geometryData)
                                 .withCreator(userName)
+                                .withBestTime(0)
+                                .withBestRacer("")
                                 .build()
                                 
     return newTrack    

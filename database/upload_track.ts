@@ -9,7 +9,10 @@ export const uploadTrack = async (newTrack: Track) => {
     try {
         await setDoc(trackRef, {
             geometry_data: newTrack.map_geometry,
-            creator: newTrack.creator
+            creator: newTrack.creator,
+            track_name: newTrack.track_name,
+            best_time: newTrack.best_time,
+            best_racer: newTrack.best_racer
         });
 
         console.log("Finished uploading track ID", newTrack.UUID);
